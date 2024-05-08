@@ -1,0 +1,106 @@
+"use client"
+import Link from 'next/link'
+import { QuestionProvider, useQuestionContext } from '@/app/contexts/QuestionProvider';
+import {AnswerProvider, useAnswerContext} from '../../contexts/AnswerProvider';
+import RadioCustom from "../../../components/custom/RadioCustom"
+import { useEffect, useState } from 'react';
+import { UserProvider, useUserContext } from '@/app/contexts/UserProvider';
+import Question from '@/app/types/questions';
+
+
+interface QuestionResponse{
+    response_value: number,
+    question_id: number
+}
+
+interface UserType{
+    user_email: string;
+    user_name: string;
+    user_year_level: number;
+    user_program: string;
+}
+
+export default function QuestionForm({params}: {
+    params:{
+        id: string
+    }
+}){
+    return(
+        <UserProvider>
+            <AnswerProvider>
+                <QuestionProvider>
+                    <QuestionPrompt params={params}></QuestionPrompt>
+                </QuestionProvider>
+            </AnswerProvider>
+        </UserProvider>
+    )
+}
+
+function QuestionPrompt({params}:{
+    params:{
+        id: string
+    }
+}){
+    const{surveyContent, setSurveyContent} = useQuestionContext()
+    const {answers, setAnswers} = useAnswerContext()
+    const {user} = useUserContext()
+    const [ansLoad, setAnsLoad] = useState<QuestionResponse[]>()
+    const [userLoad, setUserLoad] = useState<UserType>()
+    const currentQuestionIndex = parseInt(params.id)-1
+    const [radioValue, setRadioValue] = useState(0);
+    useEffect(() => {
+        setUserLoad(user)
+        console.log(user)
+    }, [user])
+    const setValue = (value: number) =>{
+        console.log(value)
+        //console.log(surveyContent)
+        setRadioValue(value);
+    }
+    
+    const setAnswerValue = () =>{
+        let values: QuestionResponse = {
+            response_value: radioValue,
+            question_id: surveyContent.questions[currentQuestionIndex].id
+        }
+        let temp = [...answers];
+        temp.push(values);
+        setAnswers(temp)
+    }
+    const sendAnswers = () => {
+        setAnswerValue()
+        const data = {
+            user: userLoad,
+            answers: ansLoad,
+            survey_id: 1
+        }
+        console.log(data)
+        fetch(`${process.env.NEXT_PUBLIC_URL}/api/question/1`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    }
+    const next = <Link href={`/questions/` + (currentQuestionIndex + 2)} onClick={setAnswerValue}>Next</Link>
+    const submit = <Link href={'/'} onClick={
+        sendAnswers
+    }>Submit</Link>
+    let LinkButton = next
+    if(parseInt(params.id) == surveyContent.questions.length){
+        LinkButton = submit
+    } else {
+        LinkButton = next
+    }
+    return(
+        <main className="flex min-h-screen flex-col items-center justify-between p-12 bg-white">
+            <p>{user.user_name}</p>
+            <p className="text-black">{surveyContent.questions[currentQuestionIndex].question}</p>
+            <form>
+                <RadioCustom question={surveyContent.questions[currentQuestionIndex]} onChange={(e: number) => setValue(e)}/>
+                {LinkButton}
+            </form>
+        </main>
+    )
+}
