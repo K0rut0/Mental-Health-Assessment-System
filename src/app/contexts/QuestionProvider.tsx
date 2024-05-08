@@ -32,12 +32,12 @@ export function QuestionProvider({children}: {
     });
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_URL}/api/question/1`, {
+        fetch(`http://localhost:3000/api/question/1`, {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json'
             }
-        }).then(x => x.json()).then(x=>{
+        }).then((x) => x.json()).then(x=>{
             setSurveyContent({
                 survey_id: x.body.survey_id,
                 questions: x.body.questions

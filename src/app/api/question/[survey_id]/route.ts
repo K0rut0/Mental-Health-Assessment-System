@@ -76,6 +76,10 @@ export async function GET(request: Request, {params}:{
             }, {status: 200})
         }
     } catch (err) {
+        return Response.json({
+            success: false,
+            body: "No survey found",
+        }, {status: 404})
         console.log(err)
     }
 }
@@ -128,6 +132,10 @@ export async function POST(request: Request){
             status: 200
         })
     } catch(err){
+        return Response.json({
+            success: false,
+            body: "No survey found",
+        }, {status: 404})
         console.log(err)
     }
 

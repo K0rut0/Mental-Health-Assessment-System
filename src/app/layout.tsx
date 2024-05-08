@@ -4,6 +4,7 @@ import "./globals.css";
 import { QuestionProvider } from "./contexts/QuestionProvider";
 import { AnswerProvider } from "./contexts/AnswerProvider";
 import { UserProvider } from "./contexts/UserProvider";
+import { AdminProvider } from "./contexts/AdminProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,13 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <UserProvider>
-          <AnswerProvider>
-              <QuestionProvider>
-                  {children}
-              </QuestionProvider>
-          </AnswerProvider>
-        </UserProvider>
+        <AdminProvider>
+          <UserProvider>
+            <AnswerProvider>
+                <QuestionProvider>
+                    {children}
+                </QuestionProvider>
+            </AnswerProvider>
+          </UserProvider>
+        </AdminProvider>
       </body>
     </html>
   );

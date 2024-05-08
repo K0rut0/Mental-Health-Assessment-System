@@ -60,3 +60,10 @@ model processed_responses {
   summed_result   Int
   user_name       String
 }
+
+model admin_accounts {
+  id         BigInt @id @default(autoincrement())
+  user_name  String
+  password   String
+  admin_type String
+}
