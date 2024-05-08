@@ -37,10 +37,10 @@ export function UserProvider({children}: {
     useEffect(() => {
         console.log("mounted")
         
-             return () => {
-               console.log("unmounted")
-             }
-           }, [])
+        return () => {
+            console.log("unmounted")
+        }
+    }, [])
     console.log(user)
     return(
         <UserContext.Provider value={{user, setUser}}>

@@ -26,13 +26,7 @@ export default function QuestionForm({params}: {
     }
 }){
     return(
-        <UserProvider>
-            <AnswerProvider>
-                <QuestionProvider>
-                    <QuestionPrompt params={params}></QuestionPrompt>
-                </QuestionProvider>
-            </AnswerProvider>
-        </UserProvider>
+        <QuestionPrompt params={params}></QuestionPrompt>
     )
 }
 
@@ -51,7 +45,8 @@ function QuestionPrompt({params}:{
     useEffect(() => {
         setUserLoad(user)
         console.log(user)
-    }, [user])
+        setAnsLoad(answers)
+    }, [user, answers, radioValue])
     const setValue = (value: number) =>{
         console.log(value)
         //console.log(surveyContent)
@@ -65,14 +60,13 @@ function QuestionPrompt({params}:{
         }
         let temp = [...answers];
         temp.push(values);
-        setAnswers(temp)
+        setAnswers(temp);
     }
     const sendAnswers = () => {
-        setAnswerValue()
         const data = {
             user: userLoad,
             answers: ansLoad,
-            survey_id: 1
+            survey_id: surveyContent.survey_id
         }
         console.log(data)
         fetch(`${process.env.NEXT_PUBLIC_URL}/api/question/1`, {
@@ -84,9 +78,8 @@ function QuestionPrompt({params}:{
         })
     }
     const next = <Link href={`/questions/` + (currentQuestionIndex + 2)} onClick={setAnswerValue}>Next</Link>
-    const submit = <Link href={'/'} onClick={
-        sendAnswers
-    }>Submit</Link>
+    const submit = <Link href={`/submit`} onClick={setAnswerValue}>Next</Link>
+
     let LinkButton = next
     if(parseInt(params.id) == surveyContent.questions.length){
         LinkButton = submit

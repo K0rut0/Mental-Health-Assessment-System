@@ -46,10 +46,10 @@ export function QuestionProvider({children}: {
             console.log(x.body)
         });
     },[]);
-    if(loading) return <p>loading</p>
+    
     return(
         <QuestionContext.Provider value={{surveyContent, setSurveyContent}}>
-            {children}
+            {loading ? <p>loading</p> : children}
         </QuestionContext.Provider>
     )
 }

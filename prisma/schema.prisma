@@ -26,7 +26,7 @@ model responses {
   response_value Int
   date_answered  DateTime  @db.Timestamp(6)
   year_level     Int
-  program        Int
+  program        String
   user_name      String
   questions      questions @relation(fields: [question_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

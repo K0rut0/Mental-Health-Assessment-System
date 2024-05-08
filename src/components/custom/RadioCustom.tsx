@@ -33,7 +33,7 @@ function RadioCustom({question, onChange}: {question: Question, onChange: Functi
                 {Array.from({ length: question.scale }).map((_, i) => 
                 <div key={i+`d`}>
                 <Label className="text-black" key={`label` + i}>{label[i]}</Label>
-                <RadioGroupItem  className="text-black accent-black" value={i.toString()} id={( i+1)+`n`} onClick={() => SetRadioValue(i+1)} key={`key-`+i}>  </RadioGroupItem>
+                <RadioGroupItem  className="text-black accent-black" value={i.toString()} id={( i+1)+`n`} onClick={() => SetRadioValue(i)} key={`key-`+i}>  </RadioGroupItem>
                 </div>)}
             </RadioGroup>
         </div>

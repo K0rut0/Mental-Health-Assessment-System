@@ -9,12 +9,6 @@ export default function Layout({ children }: {
 }){
     return(
     <>
-        <UserProvider>
-            <AnswerProvider>
-                <QuestionProvider>
-                    {children}
-                </QuestionProvider>
-            </AnswerProvider>
-        </UserProvider>
+        {children}
     </>)
 }

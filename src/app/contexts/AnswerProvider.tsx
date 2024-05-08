@@ -1,5 +1,5 @@
 "use client"
-import React, {useContext, useState, createContext, Children, ReactNode, ContextType} from "react";
+import React, {useContext, useState, createContext, Children, ReactNode, ContextType, useEffect} from "react";
 
 interface QuestionResponse{
     response_value: number,
@@ -24,7 +24,14 @@ export function AnswerProvider({children}: {
     children: ReactNode
 }){
     const [answers, setAnswers] = useState<QuestionResponse[]>([]);
-    
+    console.log(answers)
+    useEffect(() => {
+        console.log("mounted")
+        
+             return () => {
+               console.log("unmounted")
+             }
+           }, [])
     return(
         <AnswerContext.Provider value={{answers, setAnswers}}>
             {children}

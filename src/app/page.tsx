@@ -28,21 +28,7 @@ function UserForm(){
   const [userYearLevel, setUserYearLevel] = useState(0)
   const [userProgram, setUserProgram] = useState('')
   const {user, setUser} = useUserContext();
-  const {surveyContent, setSurveyContent} = useQuestionContext()
 
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_URL}/api/question/1`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(x => x.json()).then(x=>{
-      setSurveyContent(x.body)
-      //console.log(x.body)
-      setLoading(false)
-    });
-  },[]);
-  if (loading) return <p>Loading...</p>;
 
   function sendUserData(){
     let user = {
