@@ -19,16 +19,17 @@ model questions {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model responses {
-  id             Int       @id @default(autoincrement())
-  survey_id      Int
-  user_email     String
-  question_id    Int
-  response_value Int
-  date_answered  DateTime  @db.Timestamp(6)
-  year_level     Int
-  program        String
-  user_name      String
-  questions      questions @relation(fields: [question_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id              Int       @id @default(autoincrement())
+  survey_id       Int
+  user_email      String
+  question_id     Int
+  response_value  Int
+  date_answered   DateTime  @db.Timestamp(6)
+  year_level      Int
+  program         String
+  user_name       String
+  user_department String?
+  questions       questions @relation(fields: [question_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -59,6 +60,7 @@ model processed_responses {
   period_answered String
   summed_result   Int
   user_name       String
+  user_department String?
 }
 
 model admin_accounts {
@@ -69,16 +71,16 @@ model admin_accounts {
 }
 
 model departments {
-  id       BigInt     @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
   name     String
   acronym  String
   programs programs[]
 }
 
 model programs {
-  id                 BigInt      @id @default(autoincrement())
+  id                 Int         @id @default(autoincrement())
   program_name       String
   program_acronym    String
-  program_department BigInt
+  program_department Int
   departments        departments @relation(fields: [program_department], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

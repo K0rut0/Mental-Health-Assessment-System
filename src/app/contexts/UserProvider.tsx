@@ -6,6 +6,7 @@ interface UserType{
     user_name: string;
     user_year_level: number;
     user_program: string;
+    user_department: string;
 }
 
 interface UserContextType {
@@ -32,7 +33,8 @@ export function UserProvider({children}: {
         user_email: "",
         user_name: "",
         user_year_level: 0,
-        user_program: ""
+        user_program: "",
+        user_department: ""
     });
     useEffect(() => {
         console.log("mounted")
