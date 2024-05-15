@@ -1,6 +1,7 @@
 "use client"
 import React, {useContext, useState, createContext, Children, ReactNode, ContextType, useEffect} from "react";
 import Question from "../types/questions"
+import Loading from "@/components/custom/Loading";
 
 interface QuestionAPIRes{
     survey_id: number
@@ -49,7 +50,7 @@ export function QuestionProvider({children}: {
     
     return(
         <QuestionContext.Provider value={{surveyContent, setSurveyContent}}>
-            {loading ? <p>loading</p> : children}
+            {loading ? <Loading></Loading> : children}
         </QuestionContext.Provider>
     )
 }

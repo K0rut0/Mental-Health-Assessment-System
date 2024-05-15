@@ -2,6 +2,7 @@
 
 import { useAdminContext } from "@/app/contexts/AdminProvider"
 import Admin from "@/app/types/admin"
+import Loading from "@/components/custom/Loading"
 import { useEffect, useState } from "react"
 
 export default function Home(){
@@ -28,7 +29,7 @@ export default function Home(){
         }).then(x => x.json()).then(x => setAverage(`The average for the current survey is: ${x.body.average}`))
     }
     return(
-        loading? <p>loading</p>:
+        loading? <Loading></Loading>:
         <div>
             <p>
                 HOME of {currAdmin.user_name}

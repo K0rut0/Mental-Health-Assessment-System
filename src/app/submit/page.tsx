@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useAnswerContext } from "../contexts/AnswerProvider"
 import { useQuestionContext } from "../contexts/QuestionProvider"
 import { useUserContext } from "../contexts/UserProvider"
+import Loading from "@/components/custom/Loading"
 
 interface QuestionResponse{
     response_value: number,
@@ -30,7 +31,7 @@ export default function SubmitAnswers(){
         console.log("loaded")
         setLoading(false)
     }, [user, answers])
-    if(loading) return <p>loading</p>
+    if(loading) return <Loading></Loading>
     const sendAnswers = () => {
         const data = {
             user: userLoad,

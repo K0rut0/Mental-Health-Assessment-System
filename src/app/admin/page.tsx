@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react"
 import Admin from "../types/admin";
 import { useAdminContext } from "../contexts/AdminProvider";
+import Loading from "@/components/custom/Loading";
 export default function AdminPage(){
     const [userName, setUserName] = useState('');
     const [passWord, setPassWord] = useState('');
@@ -32,7 +33,7 @@ export default function AdminPage(){
         redirect('/admin/home')
     }
     return(
-        loading ? <p>loading</p> :
+        loading ? <Loading></Loading> :
         <div>
             <label>Username: </label>
             <input type="text" className="username" onChange={e => setUserName(e.target.value)}></input>

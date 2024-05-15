@@ -67,3 +67,18 @@ model admin_accounts {
   password   String
   admin_type String
 }
+
+model departments {
+  id       BigInt     @id @default(autoincrement())
+  name     String
+  acronym  String
+  programs programs[]
+}
+
+model programs {
+  id                 BigInt      @id @default(autoincrement())
+  program_name       String
+  program_acronym    String
+  program_department BigInt
+  departments        departments @relation(fields: [program_department], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
