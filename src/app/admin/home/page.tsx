@@ -63,12 +63,12 @@ export default function Home(){
                         return(
                             <Accordion type="single" collapsible key={i+'accord'}>
                                 <AccordionItem value="item-1" key={i+'item'}>
-                                    <AccordionTrigger>
-                                        <Card key={x.id} className="flex flex-col max-w-[500px]">
-                                            <CardHeader>
+                                    <AccordionTrigger key={x.id+'trigger'}>
+                                        <Card key={x.id+`${x.acronym}`} className="flex flex-col max-w-[500px]">
+                                            <CardHeader key={x.id + 'header'}>
                                                 <CardTitle>{x.acronym}</CardTitle>
                                             </CardHeader>
-                                            <CardContent>
+                                            <CardContent key={x.id+'cont'}>
                                                 <div className="flex flex-col">
                                                     <Label>Department Minimum: {x.min}</Label>  
                                                     <Label>Department Maximum: {x.max}</Label>
@@ -80,7 +80,7 @@ export default function Home(){
                                         </Card>
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                        <DisplayProg data={progData} id={x.id}></DisplayProg>
+                                        <DisplayProg key={x.id+'programs'} data={progData} id={x.id}></DisplayProg>
                                     </AccordionContent>
                                 </AccordionItem>
                             </Accordion>

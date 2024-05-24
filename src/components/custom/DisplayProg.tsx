@@ -13,13 +13,13 @@ export default function DisplayProg({data, id}:{
                 return(
                     <Card key={x.id}>
                         
-                        <CardTitle>
+                        <CardTitle key={x.id+'title'}>
                             {x.acronym}
                         </CardTitle>
                         <CardContent className="flex flex-col gap-2" key={x.id+'cardC'}>
-                            <Label>Program average: {x.round}</Label>
-                            <Label>Program min: {x.min}</Label>
-                            <Label>Program max: {x.max}</Label>
+                            <Label key={x.id+'l1'}>Program average: {x.round}</Label>
+                            <Label key={x.id+'l2'}>Program min: {x.min}</Label>
+                            <Label key={x.id+'l3'}>Program max: {x.max}</Label>
                         </CardContent>
                     </Card>
                 )
