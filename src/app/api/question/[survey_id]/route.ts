@@ -1,6 +1,6 @@
 "use server"
-import { PrismaClient } from "@prisma/client";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "../../../../../node_modules/@prisma/client/default";
+import type { NextApiRequest, NextApiResponse } from 'next'
 import Question from "@/app/types/questions";
 const ps = new PrismaClient()
 

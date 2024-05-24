@@ -25,6 +25,7 @@ interface UserType{
     user_name: string;
     user_year_level: number;
     user_program: string;
+    user_department: string
     user_department: string;
 }
 
