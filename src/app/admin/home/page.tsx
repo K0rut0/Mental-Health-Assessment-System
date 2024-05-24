@@ -59,9 +59,9 @@ export default function Home(){
             <div className="flex w-100 flex-col p-5 gap-50 justify-center">
                 <DeptChart></DeptChart>
                 <div className="flex flex-col justify-center w-100 p-5 gap-5    ">
-                    {data.map((x: any) => {
+                    {data.map((x: any, i) => {
                         return(
-                            <Accordion type="single" collapsible>
+                            <Accordion type="single" collapsible key={i+'accord'}>
                                 <AccordionItem value="item-1">
                                     <AccordionTrigger>
                                         <Card key={x.id} className="flex flex-col max-w-[500px]">
