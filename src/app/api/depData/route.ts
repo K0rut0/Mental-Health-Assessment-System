@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { group } from "console";
 
 const ps = new PrismaClient()
@@ -14,13 +14,13 @@ interface deptResponses{
     user_department: number
 }
 export async function GET(request: Request){
-    const data: responseDta[] = await ps.$queryRaw`SELECT ROUND(AVG(processed_responses.summed_result), 2), 
+    const data: responseDta[] = await ps.$queryRaw(Prisma.sql`SELECT ROUND(AVG(processed_responses.summed_result), 2), 
     MIN(processed_responses.summed_result), MAX(processed_responses.summed_result), 
     departments.acronym, 
     departments.id 
-    FROM processed_responses JOIN departments ON processed_responses.user_department = departments.id group by departments.id`
-    const groupedRes: deptResponses[]= await ps.$queryRaw`SELECT processed_responses.summed_result, processed_responses.user_department FROM processed_responses JOIN
-    departments on  processed_responses.user_department = departments.id order by departments.id`
+    FROM processed_responses JOIN departments ON processed_responses.user_department = departments.id group by departments.id`)
+    const groupedRes: deptResponses[]= await ps.$queryRaw(Prisma.sql`SELECT processed_responses.summed_result, processed_responses.user_department FROM processed_responses JOIN
+    departments on  processed_responses.user_department = departments.id order by departments.id`)
     const departmentResponses: any = {}
     if(data != null){
         if(groupedRes != null){

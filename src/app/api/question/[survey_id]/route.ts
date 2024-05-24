@@ -1,5 +1,5 @@
 "use server"
-import { PrismaClient } from "../../../../../node_modules/@prisma/client/default";
+import { Prisma, PrismaClient } from "../../../../../node_modules/@prisma/client/default";
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Question from "@/app/types/questions";
 const ps = new PrismaClient()
@@ -61,7 +61,7 @@ export async function GET(request: Request, {params}:{
         })
         let res : Question[];
         if(current_survey != null){
-            res = await ps.$queryRaw`SELECT * FROM survey_content JOIN questions ON survey_content.question_id = questions.id WHERE survey_id = ${current_survey.id}`
+            res = await ps.$queryRaw(Prisma.sql`SELECT * FROM survey_content JOIN questions ON survey_content.question_id = questions.id WHERE survey_id = ${current_survey.id}`)
         } else {
             return Response.json({
                 success: false,

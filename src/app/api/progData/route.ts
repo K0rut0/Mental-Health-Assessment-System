@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { group } from "console";
 
 const ps = new PrismaClient()
@@ -15,7 +15,7 @@ interface deptResponses{
     user_program: string
 }
 export async function GET(request: Request){
-    const data: responseDta[] = await ps.$queryRaw`SELECT
+    const data: responseDta[] = await ps.$queryRaw(Prisma.sql`SELECT
     ROUND(AVG(processed_responses.summed_result), 2) AS avg_summed_result,
     MIN(processed_responses.summed_result) AS min_summed_result,
     MAX(processed_responses.summed_result) AS max_summed_result,
@@ -36,9 +36,9 @@ export async function GET(request: Request){
   ) AS programs ON processed_responses.user_program = programs.program_acronym
   GROUP BY
     programs.id, processed_responses.user_program, programs.program_department;
-  `
-    const groupedRes: deptResponses[]= await ps.$queryRaw`SELECT processed_responses.summed_result, processed_responses.user_program FROM processed_responses JOIN
-    programs on  processed_responses.user_program = programs.program_acronym order by programs.program_acronym;`
+  `)
+    const groupedRes: deptResponses[]= await ps.$queryRaw(Prisma.sql`SELECT processed_responses.summed_result, processed_responses.user_program FROM processed_responses JOIN
+    programs on  processed_responses.user_program = programs.program_acronym order by programs.program_acronym;`)
     const departmentResponses: any = {}
     if(data != null){
         if(groupedRes != null){
