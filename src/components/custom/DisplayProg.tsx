@@ -11,7 +11,7 @@ export default function DisplayProg({data, id}:{
             {data.map((x: any) => {
             if(x.program_department == id){
                 return(
-                    <Card>
+                    <Card key={x.id}>
                         
                         <CardTitle>
                             {x.acronym}
