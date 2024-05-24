@@ -16,7 +16,7 @@ export default function DisplayProg({data, id}:{
                         <CardTitle>
                             {x.acronym}
                         </CardTitle>
-                        <CardContent className="flex flex-col gap-2">
+                        <CardContent className="flex flex-col gap-2" key={x.id+'cardC'}>
                             <Label>Program average: {x.round}</Label>
                             <Label>Program min: {x.min}</Label>
                             <Label>Program max: {x.max}</Label>

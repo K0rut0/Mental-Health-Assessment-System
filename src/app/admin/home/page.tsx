@@ -62,7 +62,7 @@ export default function Home(){
                     {data.map((x: any, i) => {
                         return(
                             <Accordion type="single" collapsible key={i+'accord'}>
-                                <AccordionItem value="item-1">
+                                <AccordionItem value="item-1" key={i+'item'}>
                                     <AccordionTrigger>
                                         <Card key={x.id} className="flex flex-col max-w-[500px]">
                                             <CardHeader>
