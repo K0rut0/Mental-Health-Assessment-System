@@ -154,7 +154,7 @@ function UserForm(){
                 <SelectValue placeholder="Program" />
               </SelectTrigger>
               <SelectContent >
-                {programChoices.map((x, i) => <SelectItem className="max-w-fit" value={(x).toString()} key = {i+`dept`}>{x.toString()}</SelectItem>)}
+                {programChoices.map((x, i) => <SelectItem className="max-w-fit" value={(x).toString()} key = {i+`prog`}>{x.toString()}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
