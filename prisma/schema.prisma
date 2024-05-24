@@ -19,16 +19,18 @@ model questions {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model responses {
-  id             Int       @id @default(autoincrement())
-  survey_id      Int
-  user_email     String
-  question_id    Int
-  response_value Int
-  date_answered  DateTime  @db.Timestamp(6)
-  year_level     Int
-  program        String
-  user_name      String
-  questions      questions @relation(fields: [question_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id              Int          @id @default(autoincrement())
+  survey_id       Int
+  user_email      String
+  question_id     Int
+  response_value  Int
+  date_answered   DateTime     @db.Timestamp(6)
+  year_level      Int
+  program         String
+  user_name       String
+  user_department Int?
+  questions       questions    @relation(fields: [question_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  departments     departments? @relation(fields: [user_department], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -53,12 +55,15 @@ model surveys {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model processed_responses {
-  id              BigInt   @id @default(autoincrement())
+  id              BigInt       @id @default(autoincrement())
   user_email      String
-  date_answered   DateTime @db.Timestamptz(6)
+  date_answered   DateTime     @db.Timestamptz(6)
   period_answered String
   summed_result   Int
   user_name       String
+  user_department Int?
+  user_program    String?
+  departments     departments? @relation(fields: [user_department], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model admin_accounts {
@@ -69,16 +74,18 @@ model admin_accounts {
 }
 
 model departments {
-  id       BigInt     @id @default(autoincrement())
-  name     String
-  acronym  String
-  programs programs[]
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  acronym             String
+  processed_responses processed_responses[]
+  programs            programs[]
+  responses           responses[]
 }
 
 model programs {
-  id                 BigInt      @id @default(autoincrement())
+  id                 Int         @id @default(autoincrement())
   program_name       String
   program_acronym    String
-  program_department BigInt
+  program_department Int
   departments        departments @relation(fields: [program_department], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

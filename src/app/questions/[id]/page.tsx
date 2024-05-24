@@ -6,7 +6,14 @@ import RadioCustom from "../../../components/custom/RadioCustom"
 import { useEffect, useState } from 'react';
 import { UserProvider, useUserContext } from '@/app/contexts/UserProvider';
 import Question from '@/app/types/questions';
-
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card"
 
 interface QuestionResponse{
     response_value: number,
@@ -18,6 +25,7 @@ interface UserType{
     user_name: string;
     user_year_level: number;
     user_program: string;
+    user_department: string;
 }
 
 export default function QuestionForm({params}: {
@@ -87,13 +95,15 @@ function QuestionPrompt({params}:{
         LinkButton = next
     }
     return(
-        <main className="flex min-h-screen flex-col items-center justify-between p-12 bg-white">
-            <p>{user.user_name}</p>
-            <p className="text-black">{surveyContent.questions[currentQuestionIndex].question}</p>
-            <form>
+        <Card>
+            <CardHeader>
+                <CardTitle>{surveyContent.questions[currentQuestionIndex].question}</CardTitle>
+            </CardHeader>
+            <CardContent>
                 <RadioCustom question={surveyContent.questions[currentQuestionIndex]} onChange={(e: number) => setValue(e)}/>
                 {LinkButton}
-            </form>
-        </main>
+            </CardContent>
+        </Card>
+        
     )
 }

@@ -4,6 +4,15 @@ import { useEffect, useState } from "react"
 import Admin from "../types/admin";
 import { useAdminContext } from "../contexts/AdminProvider";
 import Loading from "@/components/custom/Loading";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Label } from "@/components/ui/label";
 export default function AdminPage(){
     const [userName, setUserName] = useState('');
     const [passWord, setPassWord] = useState('');
@@ -34,12 +43,23 @@ export default function AdminPage(){
     }
     return(
         loading ? <Loading></Loading> :
-        <div>
-            <label>Username: </label>
-            <input type="text" className="username" onChange={e => setUserName(e.target.value)}></input>
-            <label>Password: </label>
-            <input type="password" onChange={e => setPassWord(e.target.value)}></input>
-            <button onClick={attemptLogin}>Login</button>
+        <div className="w-100 flex justify-center p-5">
+            <Card className="w-[500px] border-2 border-solid border-black">
+                <CardHeader>
+                    <CardTitle>Admin Login</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
+                        <Label>Username: </Label>
+                        <input type="text" className="text-black border-b-2 border-black" onChange={e => setUserName(e.target.value)}></input>
+                    </div>
+                    <div className="flex flex-col">
+                        <Label>Password: </Label>
+                        <input type="password" className="text-black border-b-2 border-black" onChange={e => setPassWord(e.target.value)}></input>
+                    </div>
+                    <button onClick={attemptLogin}>Login</button>
+                </CardContent>
+            </Card>
         </div>
     )
 }

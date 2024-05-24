@@ -25,6 +25,7 @@ interface responseData{
     program: string;
     user_email: string;
     user_name: string;
+    user_department: number;
 }
 interface Response{
     question_id: number;
@@ -42,7 +43,9 @@ interface ProcessedData{
     date_answered: Date,
     period_answered:string | null,
     summed_result: number,
-    user_name: string
+    user_name: string,
+    user_department:number,
+    user_program: string
 }
 
 export async function GET(request: Request, {params}:{
@@ -90,6 +93,7 @@ export async function POST(request: Request){
         const answers = data.answers
         const survey_id = data.survey_id
         const d = new Date()
+        console.log(data)
         d.toLocaleDateString()
         const responses: responseData[] = []
         let sum = 0;
@@ -102,7 +106,8 @@ export async function POST(request: Request){
                 year_level: user.user_year_level,
                 program: user.user_program,
                 user_email: user.user_email,
-                user_name: user.user_name
+                user_name: user.user_name,
+                user_department: parseInt(user.user_department)
             })
             sum+=element.response_value
         });
@@ -121,7 +126,9 @@ export async function POST(request: Request){
                     date_answered: d,
                     period_answered: period.period_administered,
                     summed_result: sum,
-                    user_name: user.user_name
+                    user_name: user.user_name,
+                    user_department: parseInt(user.user_department),
+                    user_program: user.user_program
                 }
             })
         }
@@ -132,11 +139,12 @@ export async function POST(request: Request){
             status: 200
         })
     } catch(err){
+        console.log(err)
         return Response.json({
             success: false,
             body: "No survey found",
         }, {status: 404})
-        console.log(err)
+        
     }
 
 }
